@@ -75,22 +75,29 @@ Configer 是一个基于 **WinUI 3 (.NET 8)** 的桌面控制台，它把 DeepSe
 	 cd Configer
 	 ```
 
-2. **准备 Python 运行环境**（首次运行或依赖更新时执行）
-	 ```powershell
-	 powershell -ExecutionPolicy Bypass -File .\init_env.ps1
-	 ```
-	 该脚本会自动定位 `uv.exe` 并执行 `uv sync`，生成 `.venv` 或缓存 Python 发行版。
-
-3. **构建 WinUI 客户端**
+2. **构建 WinUI 客户端**
 	 - Visual Studio：打开 `Configer.slnx` → 选择 x64/Debug → `F5` 启动。
 	 - CLI：
 		 ```powershell
 		 dotnet build .\Configer.csproj -c Debug -p:Platform=x64
 		 ```
 
-4. **运行应用**
+3. **运行应用**
 	 - VS 中 `F5`/`Ctrl+F5`
 	 - 或 `dotnet run --project .\Configer.csproj`
+
+
+## 🖥️ 图形界面使用指南
+
+1. **启动与登录**：运行客户端后会直接进入 `MainWindow`，左侧为导航栏，右侧为当前视图的内容区域，无需额外账号即可开始使用。
+2. **主导航**：侧边栏提供「配置管理器」「运行」「依赖检查」「帮助」四大入口，任意时刻都可以切换，状态会持久化在视图内部。
+3. **常规操作流**：
+	- 先在「配置管理器」检查 `.env`、词库与字幕列表，必要时导入或编辑数据；
+	- 切换到「依赖检查」点击「重新检测」，确认 uv/Python 等依赖就绪；
+	- 进入「运行」视图，用内置终端执行 `uv run .\main.py` 并观察实时输出；
+	- 若遇到文档或操作疑问，随时打开「帮助」查阅 README。
+4. **界面小技巧**：顶部命令栏会根据视图展示上下文按钮（如重启终端、导入字幕等）；右上角的刷新/打开文件夹等操作与列表联动，方便快速定位文件；在 Run 视图中可使用标准快捷键（Ctrl+C、Ctrl+L）控制终端。
+5. **窗口管理**：应用支持 DPI 缩放与最大化；若需要更大终端空间，可在 Run 视图中折叠左侧导航后再进行命令行操作。
 
 
 ## 🧭 使用指南
