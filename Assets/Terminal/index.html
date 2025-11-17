@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embedded Terminal</title>
+    <link rel="stylesheet" href="lib/xterm.css">
+    <link rel="stylesheet" href="terminal.css" />
+</head>
+<body>
+    <div class="terminal-shell">
+        <div id="terminal" role="presentation" aria-label="PowerShell 终端"></div>
+
+        <div class="preset-commands" data-role="preset-commands" aria-label="预制命令">
+            <button class="preset-command" data-command="uv run .\\main.py" title="运行翻译主流程">
+                <span class="preset-title">运行翻译</span>
+                <span class="preset-command-text">uv run .\main.py</span>
+            </button>
+            </button>
+            <button class="preset-command" data-command="uv sync" title="同步 Python 依赖">
+                <span class="preset-title">同步/初始化环境依赖</span>
+                <span class="preset-command-text">uv sync</span>
+            </button>
+            <button class="preset-command" data-command="Get-Content .\\data\\logs\\latest.log -Tail 100" title="实时查看最新日志 (需回车确认)">
+                <span class="preset-title">查看日志</span>
+                <span class="preset-command-text">Get-Content .\data\logs\latest.log -Tail 100</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="lib/xterm.js"></script>
+    <script src="lib/xterm-addon-fit.js"></script>
+    <script src="lib/xterm-addon-web-links.js"></script>
+    <script src="terminal.js"></script>
+</body>
+</html>

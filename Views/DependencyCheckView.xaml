@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Configer.Views.DependencyCheckView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:conv="using:Configer.Converters"
+    MinWidth="400" MinHeight="300">
+
+    <UserControl.Resources>
+        <conv:BoolToStatusConverter x:Key="BoolToStatus" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <SolidColorBrush x:Key="TileHoverBrush" Color="#29FFFFFF" />
+        <SolidColorBrush x:Key="TilePressedBrush" Color="#3DFFFFFF" />
+        <LinearGradientBrush x:Key="TileGradientBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#CC1F2852" Offset="0" />
+            <GradientStop Color="#B32F3F86" Offset="1" />
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TileOutlineBrush" Color="#66C2D3FF" />
+        <SolidColorBrush x:Key="TilePrimaryTextBrush" Color="#F4F7FF" />
+        <SolidColorBrush x:Key="TileSecondaryTextBrush" Color="#C3CBE4" />
+
+        <Style x:Key="TileFlyoutPresenterStyle" TargetType="FlyoutPresenter">
+            <Setter Property="Background" Value="#FF10142A" />
+            <Setter Property="Foreground" Value="#F4F7FF" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="BorderBrush" Value="#332E78" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="TileButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="Root" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <CompositeTransform x:Name="RootTransform" />
+                            </Grid.RenderTransform>
+
+                            <Border x:Name="TileBorder" Background="Transparent" CornerRadius="16" Padding="0">
+                                <Grid>
+                                    <ContentPresenter x:Name="TileContent" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                        <ContentPresenter.RenderTransform>
+                                            <CompositeTransform x:Name="ContentTransform" />
+                                        </ContentPresenter.RenderTransform>
+                                    </ContentPresenter>
+
+                                    <Border x:Name="HighlightOverlay" Background="#80FFFFFF" CornerRadius="16" Opacity="0" IsHitTestVisible="False" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="ScaleX" To="1" Duration="0:0:0.12" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="ScaleY" To="1" Duration="0:0:0.12" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="TranslateY" To="0" Duration="0:0:0.12" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TileBorder" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="HighlightOverlay" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.12" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="ScaleX" To="1.08" Duration="0:0:0.18">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="ScaleY" To="1.08" Duration="0:0:0.18">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="TranslateY" To="-6" Duration="0:0:0.18">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <!-- Change background to hover brush -->
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TileBorder" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource TileHoverBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                        <DoubleAnimation Storyboard.TargetName="HighlightOverlay" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.16">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="ScaleX" To="0.97" Duration="0:0:0.08" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="ScaleY" To="0.97" Duration="0:0:0.08" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentTransform" Storyboard.TargetProperty="TranslateY" To="-2" Duration="0:0:0.08" />
+
+                                        <!-- Change background to pressed brush -->
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TileBorder" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource TilePressedBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                        <DoubleAnimation Storyboard.TargetName="HighlightOverlay" Storyboard.TargetProperty="Opacity" To="0.28" Duration="0:0:0.06" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Root" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="CheckerTileTemplate">
+            <Button Style="{StaticResource TileButtonStyle}" Click="CheckerTile_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid Width="164" Height="164">
+                    <Border Background="{StaticResource TileGradientBrush}" CornerRadius="14" BorderBrush="{StaticResource TileOutlineBrush}" BorderThickness="1" Padding="16">
+                        <Grid>
+                            <StackPanel Spacing="10">
+                                <Border Width="60" Height="60" Background="#33FFFFFF" CornerRadius="14" HorizontalAlignment="Left">
+                                    <Image Source="{Binding IconPath}" Width="36" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" />
+                                </Border>
+
+                                <StackPanel Spacing="2">
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextWrapping="WrapWholeWords" Foreground="{StaticResource TilePrimaryTextBrush}" FontSize="18" />
+                                    <TextBlock Text="{Binding IsSuccess, Converter={StaticResource BoolToStatus}}" FontSize="13" Foreground="{StaticResource TileSecondaryTextBrush}" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <FontIcon Glyph="&#xE73E;" Foreground="#71FF97" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVisibility}}" />
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Button.Flyout>
+                    <Flyout Placement="Bottom" FlyoutPresenterStyle="{StaticResource TileFlyoutPresenterStyle}">
+                        <StackPanel Spacing="12" MaxWidth="320">
+                            <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xEC42;" Foreground="#4CB6FF" />
+                                <TextBlock Text="依赖列表" FontWeight="SemiBold" />
+                            </StackPanel>
+                            <!-- <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" /> -->
+                            <TextBlock Text="{Binding ResultText}" TextWrapping="WrapWholeWords" FontSize="16" Foreground="#E6FFFFFF" />
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Padding="12">
+        <StackPanel Spacing="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- <TextBlock Text="依赖项检查" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" /> -->
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Click="BtnRunCheck_Click">运行检查</Button>
+                    <Button Click="BtnRefresh_Click">刷新</Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- <TextBlock Text="让依赖检查像 Windows 10 磁贴一样，一目了然。点击任意磁贴查看详细结果。" Opacity="0.7" TextWrapping="WrapWholeWords" /> -->
+
+            <GridView x:Name="CheckersGrid" ItemsSource="{Binding Results}" ItemTemplate="{StaticResource CheckerTileTemplate}" SelectionMode="None" IsItemClickEnabled="False">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="4" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="Padding" Value="8" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                    </Style>
+                </GridView.ItemContainerStyle>
+            </GridView>
+        </StackPanel>
+    </Grid>
+</UserControl>

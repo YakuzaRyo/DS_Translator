@@ -1,0 +1,13 @@
+[project]
+name = "ds-translator"
+version = "0.1.0"
+description = "Uv your packages"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cython>=3.2.1",
+    "dotenv>=0.9.9",
+    "requests>=2.32.5",
+    "rich>=14.2.0",
+    "setuptools>=80.9.0",
+]

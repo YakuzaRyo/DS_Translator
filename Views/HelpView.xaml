@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Configer.Views.HelpView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    MinWidth="400"
+    MinHeight="300">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="HelpBackgroundBrush" Color="#0D0F172A" />
+        <SolidColorBrush x:Key="HelpBorderBrush" Color="#20406FBF" />
+    <SolidColorBrush x:Key="HelpTextBrush" Color="#0F172A" />
+    <SolidColorBrush x:Key="HelpSecondaryTextBrush" Color="#475467" />
+        <SolidColorBrush x:Key="HelpCodeBackgroundBrush" Color="#151B2C" />
+        <SolidColorBrush x:Key="HelpLinkBrush" Color="#7ED3FF" />
+        <SolidColorBrush x:Key="HelpInlineCodeBackground" Color="#1D2438" />
+        <SolidColorBrush x:Key="HelpInlineCodeBorder" Color="#2A3757" />
+        <SolidColorBrush x:Key="HelpInlineCodeForeground" Color="#F8FAFF" />
+        <SolidColorBrush x:Key="HelpCodeForeground" Color="#F6F8FF" />
+        <SolidColorBrush x:Key="HelpQuoteBackground" Color="#141B2F" />
+        <SolidColorBrush x:Key="HelpQuoteBorder" Color="#2C3F67" />
+        <SolidColorBrush x:Key="HelpQuoteForeground" Color="#E3E7FF" />
+        <SolidColorBrush x:Key="HelpTableBorder" Color="#2C3F67" />
+    <SolidColorBrush x:Key="HelpHeaderBrush" Color="#101828" />
+    <SolidColorBrush x:Key="HelpHeaderAccentBrush" Color="#1D2939" />
+    </UserControl.Resources>
+
+    <Grid Padding="20" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- <StackPanel Grid.Row="0" Spacing="6" MaxWidth="960" HorizontalAlignment="Center">
+            <TextBlock Text="帮助与文档" FontSize="24" FontWeight="SemiBold" />
+            <TextBlock Text="内容直接来自根目录 README.md，支持 Markdown 标题、列表、代码块等样式，并自动适配窗口宽度。" Foreground="{StaticResource HelpSecondaryTextBrush}" TextWrapping="Wrap" />
+        </StackPanel> -->
+
+        <Border Grid.Row="0" Margin="0,16,0,16" Padding="24" CornerRadius="16" Background="{StaticResource HelpBackgroundBrush}" BorderBrush="{StaticResource HelpBorderBrush}" BorderThickness="1" MaxWidth="960" HorizontalAlignment="Center">
+            <controls:MarkdownTextBlock
+                x:Name="MarkdownHost"
+                Text="正在读取 README.md …"
+                TextWrapping="Wrap"
+                Foreground="{StaticResource HelpTextBrush}"
+                FontFamily="Segoe UI Variable"
+                LinkForeground="{StaticResource HelpLinkBrush}"
+                CodeBackground="{StaticResource HelpCodeBackgroundBrush}"
+                CodeBorderBrush="#3A4E7E"
+                CodeBorderThickness="1"
+                CodePadding="12"
+                CodeFontFamily="Cascadia Code"
+                CodeForeground="{StaticResource HelpCodeForeground}"
+                InlineCodeBackground="{StaticResource HelpInlineCodeBackground}"
+                InlineCodeBorderBrush="{StaticResource HelpInlineCodeBorder}"
+                InlineCodeBorderThickness="1"
+                InlineCodePadding="4,2"
+                InlineCodeForeground="{StaticResource HelpInlineCodeForeground}"
+                QuoteBackground="{StaticResource HelpQuoteBackground}"
+                QuoteBorderBrush="{StaticResource HelpQuoteBorder}"
+                QuoteBorderThickness="2"
+                QuoteForeground="{StaticResource HelpQuoteForeground}"
+                QuotePadding="16"
+                TableBorderBrush="{StaticResource HelpTableBorder}"
+                TableBorderThickness="1"
+                Header1Foreground="{StaticResource HelpHeaderBrush}"
+                Header2Foreground="{StaticResource HelpHeaderBrush}"
+                Header3Foreground="{StaticResource HelpHeaderAccentBrush}"
+                Header4Foreground="{StaticResource HelpHeaderAccentBrush}"
+                Header5Foreground="{StaticResource HelpHeaderAccentBrush}"
+                Header6Foreground="{StaticResource HelpHeaderAccentBrush}"
+                IsTextSelectionEnabled="True"
+                LinkClicked="MarkdownHost_LinkClicked"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+        </Border>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Center" MaxWidth="960">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button x:Name="RefreshButton" Click="RefreshButton_Click" Content="重新加载" />
+                <Button x:Name="OpenReadmeButton" Click="OpenReadmeButton_Click" Content="打开 README.md" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
